@@ -130,7 +130,9 @@
                     <span class="badge bg-light text-dark border">Periode: {{ $periodeTerbaru?->nama_periode ?? '-' }}</span>
                 </div>
                 <div style="height: 320px;">
-                    <canvas id="rankingChart"></canvas>
+                    <canvas id="rankingChart" 
+                        data-labels="{{ json_encode($hasilTerbaru->map(fn($h) => $h->varianRoti->nama_varian)->values()) }}" 
+                        data-scores="{{ json_encode($hasilTerbaru->map(fn($h) => (float)$h->nilai_preferensi)->values()) }}"></canvas>
                 </div>
             </div>
         </div>
@@ -201,57 +203,50 @@
 
 @push('scripts')
 <script>
-    const ctx = document.getElementById('rankingChart').getContext('2d');
-    
-    const labels = [
-        @foreach($hasilTerbaru as $h)
-            "{{ $h->varianRoti->nama_varian }}",
-        @endforeach
-    ];
+    const canvas = document.getElementById('rankingChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        const labels = JSON.parse(canvas.dataset.labels || '[]');
+        const dataScores = JSON.parse(canvas.dataset.scores || '[]');
 
-    const dataScores = [
-        @foreach($hasilTerbaru as $h)
-            {{ $h->nilai_preferensi }},
-        @endforeach
-    ];
+        const backgroundColors = dataScores.map(score => {
+            if (score >= 0.75) return '#10b981'; // Green
+            if (score >= 0.65) return '#f59e0b'; // Amber
+            return '#94a3b8'; // Slate
+        });
 
-    const backgroundColors = dataScores.map(score => {
-        if (score >= 0.75) return '#10b981'; // Green
-        if (score >= 0.65) return '#f59e0b'; // Amber
-        return '#94a3b8'; // Slate
-    });
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Nilai Preferensi (Vi)',
-                data: dataScores,
-                backgroundColor: backgroundColors,
-                borderRadius: 6,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y',
-            plugins: {
-                legend: { display: false }
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nilai Preferensi (Vi)',
+                    data: dataScores,
+                    backgroundColor: backgroundColors,
+                    borderRadius: 6,
+                }]
             },
-            scales: {
-                x: {
-                    min: 0,
-                    max: 1.0,
-                    grid: { color: '#f1f5f9' },
-                    ticks: { font: { family: 'Plus Jakarta Sans' } }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
                 },
-                y: {
-                    grid: { display: false },
-                    ticks: { font: { family: 'Plus Jakarta Sans', weight: '500' } }
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 1.0,
+                        grid: { color: '#f1f5f9' },
+                        ticks: { font: { family: 'Plus Jakarta Sans' } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Plus Jakarta Sans', weight: '500' } }
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 </script>
 @endpush

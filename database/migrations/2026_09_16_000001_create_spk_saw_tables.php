@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kode', 10)->unique(); // C1, C2, etc
             $table->string('nama');
             $table->enum('sifat', ['benefit', 'cost']);
-            $table->double('bobot', 8, 4); // 0.30, 0.25, etc
+            $table->double('bobot'); // 0.30, 0.25, etc
             $table->string('satuan', 50)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
@@ -65,7 +65,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('periode_id')->constrained('periodes')->onDelete('cascade');
             $table->foreignId('varian_roti_id')->constrained('varian_rotis')->onDelete('cascade');
-            $table->double('nilai_preferensi', 8, 5); // Nilai Vi
+            $table->double('nilai_preferensi'); // Nilai Vi
             $table->unsignedInteger('ranking'); // 1, 2, 3...
             $table->string('rekomendasi'); // 'Prioritas Utama', 'Prioritas Sedang', 'Prioritas Rendah'
             $table->text('catatan')->nullable();

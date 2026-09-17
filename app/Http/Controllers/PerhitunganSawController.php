@@ -11,7 +11,7 @@ class PerhitunganSawController extends Controller
     public function index(Request $request, SawService $sawService)
     {
         $periodes = Periode::orderBy('tahun', 'desc')->orderBy('bulan', 'desc')->get();
-        $selectedPeriodeId = $request->get('periode_id', $periodes->first()?->id);
+        $selectedPeriodeId = $request->input('periode_id', $periodes->first()?->id);
         $periode = $periodes->where('id', $selectedPeriodeId)->first();
 
         $hasilSaw = null;
