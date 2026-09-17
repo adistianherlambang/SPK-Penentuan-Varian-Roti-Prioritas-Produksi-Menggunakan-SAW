@@ -25,3 +25,10 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Markdown files (except README.md)
+*.md
+!README.md
+!readme.md
+!**/README.md
+!**/readme.md
