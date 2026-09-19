@@ -483,9 +483,7 @@
             background-color: #F9FAFB;
             color: var(--text-muted);
             font-weight: 700;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 0.82rem;
             padding: 0.9rem 1.15rem;
             border-bottom: 1px solid var(--border-light);
         }

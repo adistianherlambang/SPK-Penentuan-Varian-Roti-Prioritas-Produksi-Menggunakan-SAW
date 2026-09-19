@@ -152,7 +152,7 @@
 
     <!-- Quick Demo Buttons -->
     <div class="pt-3 border-top border-light text-center">
-        <small class="text-muted d-block mb-2" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Akun Demo:</small>
+        <small class="text-muted d-block mb-2" style="font-size: 0.78rem; font-weight: 600;">Akun Demo:</small>
         <div class="d-flex justify-content-center gap-2">
             <button type="button" class="quick-btn" onclick="fillAdmin()">
                 Admin
