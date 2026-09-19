@@ -3,17 +3,12 @@
 @section('title', 'Data Operasional')
 
 @section('content')
-<div class="d-flex flex-column gap-4">
-    <!-- Header with Period Filter -->
-    <div class="card-custom p-4 bg-white">
-        <div class="row align-items-center g-3">
-            <div class="col-md-7">
-                <h4 class="fw-bold text-dark mb-1">Data Operasional (Matriks X)</h4>
-                <p class="text-muted small mb-0">Input data per varian berdasarkan kriteria evaluasi</p>
-            </div>
-            <div class="col-md-5">
-                <form action="{{ route('penilaian.index') }}" method="GET" class="d-flex align-items-center justify-content-md-end gap-2">
-                    <label for="periode_id" class="small fw-semibold text-muted text-nowrap">Periode:</label>
+<div class="d-flex flex-column gap-3">
+    <!-- Filter Periode -->
+    <div class="card-custom p-3 px-4 bg-white">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <form action="{{ route('penilaian.index') }}" method="GET" class="d-flex align-items-center gap-2">
                     <select name="periode_id" id="periode_id" class="select-pill" onchange="this.form.submit()">
                         @foreach ($periodes as $p)
                             <option value="{{ $p->id }}" {{ ($periode && $periode->id == $p->id) ? 'selected' : '' }}>
@@ -22,7 +17,17 @@
                         @endforeach
                     </select>
                 </form>
+                @if($periode)
+                    <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
+                        {{ ucfirst($periode->status) }}
+                    </span>
+                @endif
             </div>
+            @if($periode)
+                <a href="{{ route('perhitungan.index', ['periode_id' => $periode->id]) }}" class="btn btn-sm btn-coral-outline">
+                    Perhitungan SAW
+                </a>
+            @endif
         </div>
     </div>
 
@@ -31,28 +36,12 @@
             <div class="rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style="background-color: #FEF2F2; color: #EF4444; width: 56px; height: 56px;">
                 <i class="bi bi-calendar-x fs-3"></i>
             </div>
-            <h5 class="fw-bold text-dark mb-1">Belum ada periode dipilih</h5>
-            <p class="small text-muted mb-4">Buat periode bulanan untuk mengisi data.</p>
-            <a href="{{ route('periode.create') }}" class="btn btn-coral">
-                Buat Periode
+            <h6 class="fw-bold text-dark mb-1">Periode belum dipilih</h6>
+            <a href="{{ route('periode.create') }}" class="btn btn-sm btn-coral mt-2">
+                Tambah Periode
             </a>
         </div>
     @else
-        <!-- Information Box -->
-        <div class="card-custom p-3 bg-white d-flex flex-wrap align-items-center justify-content-between gap-3">
-            <div class="d-flex align-items-center gap-2">
-                <span class="text-dark fw-semibold">Periode: {{ $periode->nama_periode }}</span>
-                <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
-                    {{ strtoupper($periode->status) }}
-                </span>
-            </div>
-            <div>
-                <a href="{{ route('perhitungan.index', ['periode_id' => $periode->id]) }}" class="btn btn-sm btn-coral-outline">
-                    Langkah Perhitungan SAW
-                </a>
-            </div>
-        </div>
-
         <!-- Matrix Form -->
         <form action="{{ route('penilaian.store', $periode) }}" method="POST">
             @csrf
@@ -67,16 +56,16 @@
                                 @foreach ($kriterias as $k)
                                     <th>
                                         <div class="fw-bold text-dark">{{ $k->kode }}</div>
-                                        <div class="small text-secondary" style="font-size: 0.78rem;">{{ $k->nama }}</div>
+                                        <div class="small text-secondary" style="font-size: 0.75rem;">{{ $k->nama }}</div>
                                         <span class="badge {{ $k->sifat === 'benefit' ? 'badge-mint-pill' : 'badge-coral-pill' }}" style="font-size: 0.65rem;">
-                                            {{ strtoupper($k->sifat) }} ({{ round($k->bobot * 100) }}%)
+                                            {{ ucfirst($k->sifat) }} ({{ round($k->bobot * 100) }}%)
                                         </span>
                                     </th>
                                 @endforeach
                             </tr>
                             <tr class="text-center" style="font-size: 0.75rem; background-color: #FAFAFB;">
                                 @foreach ($kriterias as $k)
-                                    <th class="text-muted">{{ $k->satuan ?? 'Nilai' }}</th>
+                                    <th class="text-muted">{{ $k->satuan ?? '-' }}</th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -94,7 +83,7 @@
                                         @php
                                             $val = $matrixX[$v->id][$k->id] ?? 0;
                                         @endphp
-                                        <td style="min-width: 120px;">
+                                        <td style="min-width: 110px;">
                                             @can('manage-data')
                                                 <input type="number" step="any" min="0" 
                                                     class="form-control form-control-sm text-center fw-semibold" 
@@ -117,7 +106,7 @@
                 @can('manage-data')
                     <div class="p-3 border-top border-light d-flex justify-content-end">
                         <button type="submit" class="btn btn-coral">
-                            <i class="bi bi-save me-1"></i> Simpan & Jalankan SAW
+                            <i class="bi bi-save me-1"></i> Simpan Data
                         </button>
                     </div>
                 @endcan

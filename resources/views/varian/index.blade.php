@@ -3,32 +3,28 @@
 @section('title', 'Varian Roti')
 
 @section('content')
-<div class="d-flex flex-column gap-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-        <div>
-            <h4 class="fw-bold text-dark mb-1">Varian Roti</h4>
-            <p class="text-muted small mb-0">Daftar alternatif produksi</p>
-        </div>
-        @can('manage-data')
+<div class="d-flex flex-column gap-3">
+    @can('manage-data')
+        <div class="d-flex justify-content-end">
             <a href="{{ route('varian.create') }}" class="btn btn-coral">
                 <i class="bi bi-plus-circle me-1"></i> Tambah Varian
             </a>
-        @endcan
-    </div>
+        </div>
+    @endcan
 
     <div class="card-custom overflow-hidden bg-white">
         <div class="table-responsive">
             <table class="table-modern">
                 <thead>
                     <tr>
-                        <th style="width: 80px;" class="text-center">Kode</th>
-                        <th>Nama Varian</th>
+                        <th style="width: 70px;" class="text-center">Kode</th>
+                        <th>Nama</th>
                         <th>Kategori</th>
                         <th class="text-end">Harga</th>
                         <th class="text-end">Margin</th>
                         <th>Deskripsi</th>
                         @can('manage-data')
-                            <th style="width: 100px;" class="text-center">Aksi</th>
+                            <th style="width: 90px;" class="text-center">Aksi</th>
                         @endcan
                     </tr>
                 </thead>
@@ -36,7 +32,7 @@
                     @forelse ($varians as $v)
                         <tr>
                             <td class="text-center">
-                                <span class="badge badge-gray-pill px-2 py-1">{{ $v->kode }}</span>
+                                <span class="badge badge-gray-pill">{{ $v->kode }}</span>
                             </td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $v->nama_varian }}</div>
@@ -59,7 +55,7 @@
                                         <a href="{{ route('varian.edit', $v) }}" class="btn btn-sm btn-coral-outline" title="Ubah">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('varian.destroy', $v) }}" method="POST" onsubmit="return confirm('Hapus varian roti ini?');">
+                                        <form action="{{ route('varian.destroy', $v) }}" method="POST" onsubmit="return confirm('Hapus varian ini?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-pill-light text-danger" title="Hapus">
@@ -72,7 +68,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-4">Belum ada data varian roti.</td>
+                            <td colspan="7" class="text-center text-muted py-4">Tidak ada data.</td>
                         </tr>
                     @endforelse
                 </tbody>

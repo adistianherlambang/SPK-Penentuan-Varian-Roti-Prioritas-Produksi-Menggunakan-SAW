@@ -1,32 +1,28 @@
 @extends('layouts.app')
 
-@section('title', 'Periode Produksi')
+@section('title', 'Periode')
 
 @section('content')
-<div class="d-flex flex-column gap-4">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-        <div>
-            <h4 class="fw-bold text-dark mb-1">Periode Produksi</h4>
-            <p class="text-muted small mb-0">Manajemen periode evaluasi</p>
-        </div>
-        @can('manage-data')
+<div class="d-flex flex-column gap-3">
+    @can('manage-data')
+        <div class="d-flex justify-content-end">
             <a href="{{ route('periode.create') }}" class="btn btn-coral">
-                <i class="bi bi-calendar-plus me-1"></i> Periode Baru
+                <i class="bi bi-calendar-plus me-1"></i> Tambah Periode
             </a>
-        @endcan
-    </div>
+        </div>
+    @endcan
 
     <div class="card-custom overflow-hidden bg-white">
         <div class="table-responsive">
             <table class="table-modern">
                 <thead>
                     <tr>
-                        <th>Nama Periode</th>
-                        <th>Waktu</th>
+                        <th>Periode</th>
+                        <th>Bulan</th>
                         <th class="text-center">Data</th>
                         <th class="text-center">Status</th>
-                        <th>Catatan Manajemen</th>
-                        <th style="width: 200px;" class="text-center">Aksi</th>
+                        <th>Catatan</th>
+                        <th style="width: 180px;" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,17 +50,11 @@
                             </td>
                             <td class="text-center">
                                 @if($p->status === 'divalidasi')
-                                    <span class="badge badge-mint-pill px-3 py-1">
-                                        Divalidasi
-                                    </span>
+                                    <span class="badge badge-mint-pill px-3 py-1">Divalidasi</span>
                                 @elseif($p->status === 'dihitung')
-                                    <span class="badge badge-coral-pill px-3 py-1">
-                                        Dihitung
-                                    </span>
+                                    <span class="badge badge-coral-pill px-3 py-1">Dihitung</span>
                                 @else
-                                    <span class="badge badge-gray-pill px-3 py-1">
-                                        Draft
-                                    </span>
+                                    <span class="badge badge-gray-pill px-3 py-1">Draf</span>
                                 @endif
                             </td>
                             <td class="small text-muted" style="max-width: 240px;">
@@ -76,7 +66,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-inline-flex gap-1">
-                                    <a href="{{ route('penilaian.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-coral-outline" title="Input Penilaian">
+                                    <a href="{{ route('penilaian.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-coral-outline" title="Input">
                                         Input
                                     </a>
                                     <a href="{{ route('perhitungan.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-pill-light" title="SAW">
@@ -108,14 +98,14 @@
                                         <div class="modal-content rounded-4 border">
                                             <form action="{{ route('periode.validasi', $p) }}" method="POST">
                                                 @csrf
-                                                <div class="modal-header border-bottom border-light p-4">
-                                                    <h5 class="modal-title fw-bold text-dark">Validasi Periode</h5>
+                                                <div class="modal-header border-bottom border-light p-3 px-4">
+                                                    <h6 class="modal-title fw-bold text-dark">Validasi Periode</h6>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body p-4">
-                                                    <div class="mb-3">
-                                                        <label for="catatan_manajemen" class="form-label fw-semibold text-dark small">Catatan Manajemen:</label>
-                                                        <textarea class="form-control" name="catatan_manajemen" rows="3" placeholder="Tuliskan arahan atau catatan validasi..."></textarea>
+                                                    <div class="mb-2">
+                                                        <label for="catatan_manajemen" class="form-label fw-semibold text-dark small">Catatan:</label>
+                                                        <textarea class="form-control" name="catatan_manajemen" rows="3" placeholder="Catatan validasi..."></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer border-top border-light p-3">
@@ -132,7 +122,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">Belum ada periode.</td>
+                            <td colspan="6" class="text-center text-muted py-4">Tidak ada data.</td>
                         </tr>
                     @endforelse
                 </tbody>
