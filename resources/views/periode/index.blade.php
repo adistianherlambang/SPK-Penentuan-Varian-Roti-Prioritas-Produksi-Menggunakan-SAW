@@ -3,23 +3,23 @@
 @section('title', 'Periode Produksi Bulanan')
 
 @section('content')
-<div class="mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-column gap-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
             <h4 class="fw-bold text-dark mb-1">Periode Penilaian Produksi</h4>
             <p class="text-muted small mb-0">Manajemen periode bulanan untuk penentuan prioritas produksi varian roti</p>
         </div>
         @can('manage-data')
-            <a href="{{ route('periode.create') }}" class="btn btn-amber shadow-sm">
+            <a href="{{ route('periode.create') }}" class="btn btn-coral">
                 <i class="bi bi-calendar-plus me-1"></i> Buat Periode Baru
             </a>
         @endcan
     </div>
 
-    <div class="card-custom overflow-hidden">
+    <div class="card-custom overflow-hidden bg-white">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            <table class="table-modern">
+                <thead>
                     <tr>
                         <th>Nama Periode</th>
                         <th>Bulan & Tahun</th>
@@ -37,32 +37,32 @@
                                 <small class="text-muted">Dibuat: {{ $p->created_at->format('d M Y') }}</small>
                             </td>
                             <td>
-                                <span class="badge bg-light text-dark border">
+                                <span class="badge badge-gray-pill">
                                     {{ DateTime::createFromFormat('!m', $p->bulan)->format('F') }} {{ $p->tahun }}
                                 </span>
                             </td>
                             <td class="text-center">
                                 @if($p->penilaians_count > 0)
-                                    <span class="badge bg-success bg-opacity-15 text-success border border-success-subtle">
+                                    <span class="badge badge-mint-pill">
                                         <i class="bi bi-check-circle me-1"></i> Terisi ({{ $p->penilaians_count }} sel)
                                     </span>
                                 @else
-                                    <span class="badge bg-secondary bg-opacity-15 text-secondary border">
+                                    <span class="badge badge-gray-pill">
                                         <i class="bi bi-clock me-1"></i> Belum Diisi
                                     </span>
                                 @endif
                             </td>
                             <td class="text-center">
                                 @if($p->status === 'divalidasi')
-                                    <span class="badge bg-success px-3 py-1">
+                                    <span class="badge badge-mint-pill px-3 py-1">
                                         <i class="bi bi-shield-check me-1"></i> Divalidasi
                                     </span>
                                 @elseif($p->status === 'dihitung')
-                                    <span class="badge bg-primary px-3 py-1">
+                                    <span class="badge badge-coral-pill px-3 py-1">
                                         <i class="bi bi-calculator me-1"></i> Dihitung
                                     </span>
                                 @else
-                                    <span class="badge bg-secondary px-3 py-1">
+                                    <span class="badge badge-gray-pill px-3 py-1">
                                         <i class="bi bi-pencil me-1"></i> Draft
                                     </span>
                                 @endif
@@ -79,16 +79,16 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-inline-flex gap-1">
-                                    <a href="{{ route('penilaian.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-outline-primary" title="Input Data Penilaian">
+                                    <a href="{{ route('penilaian.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-coral-outline" title="Input Data Penilaian">
                                         <i class="bi bi-table"></i> Input
                                     </a>
-                                    <a href="{{ route('perhitungan.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-outline-warning" title="Lihat Kalkulasi SAW">
+                                    <a href="{{ route('perhitungan.index', ['periode_id' => $p->id]) }}" class="btn btn-sm btn-pill-light" title="Lihat Kalkulasi SAW">
                                         <i class="bi bi-calculator"></i> SAW
                                     </a>
                                     
                                     @can('manajemen')
                                         @if($p->status !== 'divalidasi' && $p->hasil_saw_details_count > 0)
-                                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#validasiModal{{ $p->id }}" title="Validasi Hasil Produksi">
+                                            <button type="button" class="btn btn-sm btn-coral" data-bs-toggle="modal" data-bs-target="#validasiModal{{ $p->id }}" title="Validasi Hasil Produksi">
                                                 <i class="bi bi-check2-circle"></i> Validasi
                                             </button>
                                         @endif
@@ -98,7 +98,7 @@
                                         <form action="{{ route('periode.destroy', $p) }}" method="POST" onsubmit="return confirm('Hapus periode ini beserta seluruh data penilaiannya?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus Periode">
+                                            <button type="submit" class="btn btn-sm btn-pill-light text-danger" title="Hapus Periode">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
@@ -107,26 +107,26 @@
 
                                 <!-- Modal Validasi untuk Manajemen -->
                                 <div class="modal fade text-start" id="validasiModal{{ $p->id }}" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content rounded-4 border-0 shadow">
                                             <form action="{{ route('periode.validasi', $p) }}" method="POST">
                                                 @csrf
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title fw-bold">Validasi Keputusan Produksi Bulanan</h5>
+                                                <div class="modal-header border-bottom border-light p-4">
+                                                    <h5 class="modal-title fw-bold text-dark">Validasi Keputusan Produksi Bulanan</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body p-4">
                                                     <p class="small text-muted mb-3">
                                                         Sebagai pihak <strong>Manajemen (Bapak Wisnu Nur Yadi)</strong>, Anda akan menyetujui rekomendasi urutan prioritas produksi untuk <strong>{{ $p->nama_periode }}</strong>.
                                                     </p>
                                                     <div class="mb-3">
-                                                        <label for="catatan_manajemen" class="form-label fw-semibold">Catatan / Arahan Manajemen:</label>
+                                                        <label for="catatan_manajemen" class="form-label fw-semibold text-dark">Catatan / Arahan Manajemen:</label>
                                                         <textarea class="form-control" name="catatan_manajemen" rows="3" placeholder="Contoh: Disetujui untuk diproduksi sesuai rekomendasi peringkat SAW. Pastikan ketersediaan kemasan Roti Coklat Lumer aman."></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-success">
+                                                <div class="modal-footer border-top border-light p-3">
+                                                    <button type="button" class="btn btn-pill-light" data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-coral">
                                                         <i class="bi bi-shield-check me-1"></i> Sahkan & Validasi
                                                     </button>
                                                 </div>

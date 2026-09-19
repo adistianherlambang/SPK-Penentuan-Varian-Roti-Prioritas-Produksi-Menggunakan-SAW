@@ -83,16 +83,16 @@
 <body class="p-4">
 
     <!-- Print Action Bar -->
-    <div class="no-print mb-4 p-3 bg-light border rounded d-flex justify-content-between align-items-center">
+    <div class="no-print mb-4 p-3 bg-white border rounded-4 shadow-sm d-flex justify-content-between align-items-center">
         <div>
-            <strong>Preview Cetak Dokumen Resmi</strong>
+            <strong class="text-dark">Preview Cetak Dokumen Resmi</strong>
             <div class="small text-muted">Gunakan opsi print browser untuk menyimpan ke PDF atau mencetak ke kertas A4.</div>
         </div>
         <div class="d-flex gap-2">
-            <button onclick="window.print()" class="btn btn-primary btn-sm">
+            <button onclick="window.print()" class="btn btn-sm px-3 text-white" style="background: linear-gradient(135deg, #FF5B5B 0%, #E5383B 100%); border-radius: 9999px; font-weight: 600; border: none;">
                 Cetak Dokumen Sekarang (Print/PDF)
             </button>
-            <button onclick="window.close()" class="btn btn-outline-secondary btn-sm">
+            <button onclick="window.close()" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 9999px; font-weight: 600;">
                 Tutup
             </button>
         </div>

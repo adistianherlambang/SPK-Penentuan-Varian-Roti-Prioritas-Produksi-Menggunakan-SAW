@@ -1,24 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Kriteria Penilaian SAW')
+@section('title', 'Kriteria & Bobot SAW')
 
 @section('content')
-<div class="mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-column gap-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
             <h4 class="fw-bold text-dark mb-1">Kriteria Penilaian SAW</h4>
             <p class="text-muted small mb-0">Daftar 5 Kriteria Penilaian Penentuan Varian Roti Prioritas Produksi (Proposal Hal. 3 & 47)</p>
         </div>
         <div>
-            <span class="badge {{ abs($totalBobot - 1.0) < 0.001 ? 'bg-success' : 'bg-danger' }} px-3 py-2 fs-6">
+            <span class="badge {{ abs($totalBobot - 1.0) < 0.001 ? 'badge-mint-pill' : 'badge-coral-pill' }} px-3 py-2 fs-6">
                 Total Bobot: {{ round($totalBobot * 100) }}% ({{ $totalBobot }})
             </span>
         </div>
     </div>
 
     <!-- Alert Info Kriteria Proposal -->
-    <div class="alert alert-warning border-0 bg-warning bg-opacity-10 d-flex align-items-start gap-3 mb-4">
-        <i class="bi bi-info-circle-fill fs-4 text-warning mt-1" style="color: #d97706 !important;"></i>
+    <div class="card-custom p-3 bg-white border-0 d-flex flex-row align-items-start gap-3" style="border-left: 4px solid var(--coral-500) !important;">
+        <div class="rounded-circle p-2 d-flex align-items-center justify-content-center" style="background-color: #FEF2F2; color: #EF4444; width: 36px; height: 36px; min-width: 36px;">
+            <i class="bi bi-info-circle-fill fs-5"></i>
+        </div>
         <div>
             <strong class="text-dark">Keterangan Sifat Kriteria:</strong>
             <ul class="mb-0 small text-muted mt-1 ps-3">
@@ -28,10 +30,10 @@
         </div>
     </div>
 
-    <div class="card-custom overflow-hidden">
+    <div class="card-custom overflow-hidden bg-white">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            <table class="table-modern">
+                <thead>
                     <tr>
                         <th style="width: 80px;" class="text-center">Kode</th>
                         <th>Nama Kriteria</th>
@@ -41,7 +43,7 @@
                         <th>Satuan Pengukuran</th>
                         <th>Keterangan Operasional</th>
                         @can('manage-data')
-                            <th style="width: 90px;" class="text-center">Aksi</th>
+                            <th style="width: 100px;" class="text-center">Aksi</th>
                         @endcan
                     </tr>
                 </thead>
@@ -49,27 +51,27 @@
                     @forelse ($kriterias as $k)
                         <tr>
                             <td class="text-center fw-bold">
-                                <span class="badge bg-dark px-2 py-1">{{ $k->kode }}</span>
+                                <span class="badge badge-gray-pill px-2 py-1">{{ $k->kode }}</span>
                             </td>
-                            <td class="fw-semibold text-dark">{{ $k->nama }}</td>
+                            <td class="fw-bold text-dark">{{ $k->nama }}</td>
                             <td class="text-center">
                                 @if($k->sifat === 'benefit')
-                                    <span class="badge bg-success bg-opacity-15 text-success border border-success-subtle px-2 py-1">
+                                    <span class="badge badge-mint-pill px-3 py-1">
                                         <i class="bi bi-graph-up-arrow me-1"></i> Benefit
                                     </span>
                                 @else
-                                    <span class="badge bg-danger bg-opacity-15 text-danger border border-danger-subtle px-2 py-1">
+                                    <span class="badge badge-coral-pill px-3 py-1">
                                         <i class="bi bi-graph-down-arrow me-1"></i> Cost
                                     </span>
                                 @endif
                             </td>
-                            <td class="text-center fw-bold text-primary">{{ $k->bobot }}</td>
+                            <td class="text-center fw-bold text-danger">{{ $k->bobot }}</td>
                             <td class="text-center fw-semibold">{{ round($k->bobot * 100) }}%</td>
-                            <td><span class="badge bg-light text-secondary border">{{ $k->satuan ?? '-' }}</span></td>
+                            <td><span class="badge badge-gray-pill">{{ $k->satuan ?? '-' }}</span></td>
                             <td class="small text-muted" style="max-width: 280px;">{{ $k->keterangan }}</td>
                             @can('manage-data')
                                 <td class="text-center">
-                                    <a href="{{ route('kriteria.edit', $k) }}" class="btn btn-sm btn-outline-warning" title="Ubah Bobot / Sifat">
+                                    <a href="{{ route('kriteria.edit', $k) }}" class="btn btn-sm btn-coral-outline" title="Ubah Bobot / Sifat">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
                                 </td>

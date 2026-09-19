@@ -3,23 +3,23 @@
 @section('title', 'Master Varian Roti')
 
 @section('content')
-<div class="mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-column gap-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
             <h4 class="fw-bold text-dark mb-1">Data Varian Roti (Alternatif)</h4>
             <p class="text-muted small mb-0">Daftar produk roti di Pelangi Nusantara Food yang menjadi alternatif dalam penentuan prioritas produksi</p>
         </div>
         @can('manage-data')
-            <a href="{{ route('varian.create') }}" class="btn btn-amber shadow-sm">
+            <a href="{{ route('varian.create') }}" class="btn btn-coral">
                 <i class="bi bi-plus-circle me-1"></i> Tambah Varian Baru
             </a>
         @endcan
     </div>
 
-    <div class="card-custom overflow-hidden">
+    <div class="card-custom overflow-hidden bg-white">
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            <table class="table-modern">
+                <thead>
                     <tr>
                         <th style="width: 80px;" class="text-center">Kode</th>
                         <th>Nama Varian Roti</th>
@@ -36,13 +36,13 @@
                     @forelse ($varians as $v)
                         <tr>
                             <td class="text-center">
-                                <span class="badge bg-secondary px-2 py-1">{{ $v->kode }}</span>
+                                <span class="badge badge-gray-pill px-2 py-1">{{ $v->kode }}</span>
                             </td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $v->nama_varian }}</div>
                             </td>
                             <td>
-                                <span class="badge bg-light text-dark border">{{ $v->kategori }}</span>
+                                <span class="badge badge-coral-pill">{{ $v->kategori }}</span>
                             </td>
                             <td class="text-end fw-semibold text-secondary">
                                 Rp {{ number_format($v->harga_jual, 0, ',', '.') }}
@@ -56,13 +56,13 @@
                             @can('manage-data')
                                 <td class="text-center">
                                     <div class="d-inline-flex gap-1">
-                                        <a href="{{ route('varian.edit', $v) }}" class="btn btn-sm btn-outline-warning" title="Ubah Data">
+                                        <a href="{{ route('varian.edit', $v) }}" class="btn btn-sm btn-coral-outline" title="Ubah Data">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form action="{{ route('varian.destroy', $v) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus varian roti {{ $v->nama_varian }}? Data penilaian terkait juga akan terhapus.');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus Data">
+                                            <button type="submit" class="btn btn-sm btn-pill-light text-danger" title="Hapus Data">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>

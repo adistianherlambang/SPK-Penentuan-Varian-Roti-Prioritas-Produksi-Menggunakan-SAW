@@ -4,6 +4,111 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --color-coral-50: #FEF2F2;
+    --color-coral-100: #FEE2E2;
+    --color-coral-200: #FECACA;
+    --color-coral-300: #FCA5A5;
+    --color-coral-400: #F87171;
+    --color-coral-500: #EF4444;
+    --color-coral-600: #DC2626;
+    --color-coral-700: #B91C1C;
+    --color-coral-800: #991B1B;
+    --color-coral-900: #7F1D1D;
+}
+
+:root {
+    --primary-coral: #EF4444;
+    --primary-coral-hover: #DC2626;
+    --primary-coral-light: #FEF2F2;
+    --primary-coral-subtle: #FEE2E2;
+    --primary-gradient: linear-gradient(135deg, #FF5B5B 0%, #E5383B 100%);
+    --bg-app: #F5F6F8;
+    --card-bg: #FFFFFF;
+    --card-radius: 20px;
+    --card-shadow: 0 4px 20px -2px rgba(0,0,0,0.03), 0 2px 6px -1px rgba(0,0,0,0.02);
+    --card-shadow-hover: 0 10px 25px -4px rgba(239,68,68,0.08), 0 4px 10px -2px rgba(0,0,0,0.04);
+    --text-main: #111827;
+    --text-muted: #6B7280;
+    --border-color: #EFF0F3;
+    --success-mint: #10B981;
+    --success-mint-bg: #D1FAE5;
+    --success-mint-text: #047857;
+}
+
+/* Base custom styles */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+}
+
+.btn-coral {
+    background: var(--primary-gradient);
+    color: #ffffff;
+    border: none;
+    border-radius: 9999px;
+    padding: 0.55rem 1.35rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-coral:hover {
+    background: linear-gradient(135deg, #F04438 0%, #C92A2A 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+    transform: translateY(-1px);
+}
+.btn-coral-outline {
+    background: #ffffff;
+    color: var(--primary-coral);
+    border: 1px solid var(--primary-coral);
+    border-radius: 9999px;
+    font-weight: 600;
+}
+.btn-coral-outline:hover {
+    background: var(--primary-coral-light);
+    color: var(--primary-coral-hover);
+}
+.btn-pill-white {
+    background: #ffffff;
+    color: var(--primary-coral);
+    border: none;
+    border-radius: 9999px;
+    font-weight: 700;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s ease;
+}
+.btn-pill-white:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.badge-coral-pill {
+    background-color: var(--primary-coral);
+    color: #ffffff;
+    border-radius: 9999px;
+    padding: 0.35rem 0.85rem;
+    font-weight: 600;
+}
+.badge-mint-pill {
+    background-color: var(--success-mint-bg);
+    color: var(--success-mint-text);
+    border-radius: 9999px;
+    padding: 0.35rem 0.85rem;
+    font-weight: 600;
+}
+.badge-gray-pill {
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border-radius: 9999px;
+    padding: 0.35rem 0.85rem;
+    font-weight: 600;
+}
+
+.card-rounded {
+    background: #ffffff;
+    border-radius: var(--card-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
 }
