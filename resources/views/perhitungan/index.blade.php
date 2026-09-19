@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Perhitungan Algoritma SAW')
+@section('title', 'Perhitungan SAW')
 
 @section('content')
 <div class="d-flex flex-column gap-4">
@@ -8,16 +8,16 @@
     <div class="card-custom p-4 bg-white">
         <div class="row align-items-center g-3">
             <div class="col-md-7">
-                <h4 class="fw-bold text-dark mb-1">Perhitungan Simple Additive Weighting (SAW)</h4>
-                <p class="text-muted small mb-0">Tahapan transparansi normalisasi matriks dan pembobotan preferensi prioritas produksi</p>
+                <h4 class="fw-bold text-dark mb-1">Perhitungan SAW</h4>
+                <p class="text-muted small mb-0">Normalisasi matriks dan pembobotan preferensi</p>
             </div>
             <div class="col-md-5">
                 <form action="{{ route('perhitungan.index') }}" method="GET" class="d-flex align-items-center justify-content-md-end gap-2">
-                    <label for="periode_id" class="small fw-semibold text-muted text-nowrap">Pilih Periode:</label>
+                    <label for="periode_id" class="small fw-semibold text-muted text-nowrap">Periode:</label>
                     <select name="periode_id" id="periode_id" class="select-pill" onchange="this.form.submit()">
                         @foreach ($periodes as $p)
                             <option value="{{ $p->id }}" {{ ($periode && $periode->id == $p->id) ? 'selected' : '' }}>
-                                {{ $p->nama_periode }} ({{ ucfirst($p->status) }})
+                                {{ $p->nama_periode }}
                             </option>
                         @endforeach
                     </select>
@@ -28,13 +28,13 @@
 
     @if (!$hasilSaw || !$hasilSaw['status'])
         <div class="card-custom p-5 bg-white text-center">
-            <div class="rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style="background-color: #FEF2F2; color: #EF4444; width: 64px; height: 64px;">
-                <i class="bi bi-exclamation-triangle fs-2"></i>
+            <div class="rounded-circle p-3 d-inline-flex align-items-center justify-content-center mb-3" style="background-color: #FEF2F2; color: #EF4444; width: 56px; height: 56px;">
+                <i class="bi bi-exclamation-triangle fs-3"></i>
             </div>
-            <h5 class="fw-bold text-dark mb-1">Data Belum Lengkap untuk Dihitung</h5>
-            <p class="small text-muted mb-4">{{ $hasilSaw['message'] ?? 'Silakan pastikan kriteria, varian roti, dan data operasional telah diisi.' }}</p>
+            <h5 class="fw-bold text-dark mb-1">Data Belum Lengkap</h5>
+            <p class="small text-muted mb-4">{{ $hasilSaw['message'] ?? 'Pastikan kriteria, varian, dan penilaian telah diisi.' }}</p>
             <a href="{{ route('penilaian.index', ['periode_id' => $periode?->id]) }}" class="btn btn-coral">
-                <i class="bi bi-pencil-square me-1"></i> Lengkapi Data Penilaian
+                Isi Penilaian
             </a>
         </div>
     @else
@@ -45,14 +45,14 @@
                     {{ $periode->nama_periode }}
                 </span>
                 <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }} px-3 py-2">
-                    STATUS: {{ strtoupper($periode->status) }}
+                    {{ strtoupper($periode->status) }}
                 </span>
             </div>
             <div class="d-flex gap-2">
                 <form action="{{ route('perhitungan.hitung-ulang', $periode) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-coral-outline">
-                        <i class="bi bi-arrow-clockwise me-1"></i> Hitung Ulang & Simpan
+                        <i class="bi bi-arrow-clockwise me-1"></i> Hitung Ulang
                     </button>
                 </form>
                 <a href="{{ route('laporan.cetak', $periode) }}" target="_blank" class="btn btn-sm btn-coral">
@@ -67,47 +67,40 @@
                 <ul class="nav nav-pills gap-2 pb-3" id="sawTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="btn btn-sm btn-coral active" id="ranking-tab" data-bs-toggle="pill" data-bs-target="#ranking" type="button" role="tab">
-                            <i class="bi bi-trophy-fill me-1"></i> 1. Hasil Perangkingan (Vᵢ)
+                            1. Perangkingan (Vi)
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="btn btn-sm btn-pill-light" id="matriks-r-tab" data-bs-toggle="pill" data-bs-target="#matriks-r" type="button" role="tab">
-                            <i class="bi bi-sliders me-1"></i> 2. Matriks Normalisasi (R)
+                            2. Matriks R
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="btn btn-sm btn-pill-light" id="kriteria-stat-tab" data-bs-toggle="pill" data-bs-target="#kriteria-stat" type="button" role="tab">
-                            <i class="bi bi-bar-chart-steps me-1"></i> 3. Min/Max & Bobot Kriteria
+                            3. Kriteria & Bobot
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="btn btn-sm btn-pill-light" id="matriks-x-tab" data-bs-toggle="pill" data-bs-target="#matriks-x" type="button" role="tab">
-                            <i class="bi bi-table me-1"></i> 4. Matriks Keputusan (X)
+                            4. Matriks X
                         </button>
                     </li>
                 </ul>
             </div>
 
             <div class="tab-content p-4" id="sawTabsContent">
-                <!-- TAB 1: HASIL PERANGKINGAN & REKOMENDASI -->
+                <!-- TAB 1: HASIL PERANGKINGAN -->
                 <div class="tab-pane fade show active" id="ranking" role="tabpanel">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <h5 class="fw-bold text-dark mb-0">Rekomendasi Prioritas Produksi Varian Roti</h5>
-                            <small class="text-muted">Hasil akhir penjumlahan terbobot: <code>Vᵢ = ∑ (Wⱼ × Rᵢⱼ)</code></small>
-                        </div>
-                    </div>
-
                     <div class="table-responsive">
                         <table class="table-modern">
                             <thead>
                                 <tr>
-                                    <th style="width: 70px;" class="text-center">Peringkat</th>
+                                    <th style="width: 70px;" class="text-center">Rank</th>
                                     <th style="width: 80px;" class="text-center">Kode</th>
-                                    <th>Nama Varian Roti</th>
-                                    <th class="text-center">Nilai Preferensi (Vᵢ)</th>
-                                    <th>Klasifikasi Rekomendasi</th>
-                                    <th>Arahan Kebijakan Produksi</th>
+                                    <th>Nama Varian</th>
+                                    <th class="text-center">Skor (Vi)</th>
+                                    <th>Klasifikasi</th>
+                                    <th>Rekomendasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,13 +108,13 @@
                                     <tr>
                                         <td class="text-center">
                                             @if($item['ranking'] == 1)
-                                                <span class="badge rounded-circle bg-danger text-white fs-6" style="width: 32px; height: 32px; line-height: 22px;">1</span>
+                                                <span class="badge rounded-circle bg-danger text-white fs-6" style="width: 30px; height: 30px; line-height: 20px;">1</span>
                                             @elseif($item['ranking'] == 2)
-                                                <span class="badge rounded-circle bg-secondary text-white fs-6" style="width: 32px; height: 32px; line-height: 22px;">2</span>
+                                                <span class="badge rounded-circle bg-secondary text-white fs-6" style="width: 30px; height: 30px; line-height: 20px;">2</span>
                                             @elseif($item['ranking'] == 3)
-                                                <span class="badge rounded-circle bg-dark text-white fs-6" style="width: 32px; height: 32px; line-height: 22px;">3</span>
+                                                <span class="badge rounded-circle bg-dark text-white fs-6" style="width: 30px; height: 30px; line-height: 20px;">3</span>
                                             @else
-                                                <span class="badge rounded-circle bg-light text-dark border fs-6" style="width: 32px; height: 32px; line-height: 22px;">{{ $item['ranking'] }}</span>
+                                                <span class="badge rounded-circle bg-light text-dark border fs-6" style="width: 30px; height: 30px; line-height: 20px;">{{ $item['ranking'] }}</span>
                                             @endif
                                         </td>
                                         <td class="text-center fw-bold">
@@ -136,20 +129,20 @@
                                         </td>
                                         <td>
                                             @if($item['rekomendasi'] === 'Prioritas Utama')
-                                                <span class="badge badge-mint-pill px-3 py-1 fs-6">
-                                                    <i class="bi bi-star-fill text-success me-1"></i> Prioritas Utama
+                                                <span class="badge badge-mint-pill px-3 py-1">
+                                                    Prioritas Utama
                                                 </span>
                                             @elseif($item['rekomendasi'] === 'Prioritas Sedang')
-                                                <span class="badge badge-coral-pill px-3 py-1 fs-6">
-                                                    <i class="bi bi-dash-circle me-1"></i> Prioritas Sedang
+                                                <span class="badge badge-coral-pill px-3 py-1">
+                                                    Prioritas Sedang
                                                 </span>
                                             @else
-                                                <span class="badge badge-gray-pill px-3 py-1 fs-6">
-                                                    <i class="bi bi-arrow-down-circle me-1"></i> Prioritas Rendah
+                                                <span class="badge badge-gray-pill px-3 py-1">
+                                                    Prioritas Rendah
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="small text-muted" style="max-width: 300px;">
+                                        <td class="small text-muted" style="max-width: 280px;">
                                             {{ $item['catatan'] }}
                                         </td>
                                     </tr>
@@ -161,15 +154,6 @@
 
                 <!-- TAB 2: MATRIKS TERNORMALISASI (R) -->
                 <div class="tab-pane fade" id="matriks-r" role="tabpanel">
-                    <div class="card-custom p-3 bg-white border-0 d-flex flex-row align-items-center gap-2 mb-3" style="border-left: 4px solid var(--coral-500) !important;">
-                        <i class="bi bi-info-circle-fill text-danger fs-5"></i>
-                        <small class="text-muted">
-                            Rumus Normalisasi Matriks: <br>
-                            • Atribut <strong>Benefit</strong>: <code>Rᵢⱼ = Xᵢⱼ / Max(Xⱼ)</code> &nbsp;|&nbsp;
-                            • Atribut <strong>Cost</strong>: <code>Rᵢⱼ = Min(Xⱼ) / Xᵢⱼ</code>
-                        </small>
-                    </div>
-
                     <div class="table-responsive">
                         <table class="table-modern text-center">
                             <thead>
@@ -206,7 +190,6 @@
 
                 <!-- TAB 3: NILAI MIN / MAX & BOBOT -->
                 <div class="tab-pane fade" id="kriteria-stat" role="tabpanel">
-                    <h6 class="fw-bold text-dark mb-3">Nilai Ekstrem Kriteria (Pembagi Normalisasi) & Bobot W</h6>
                     <div class="table-responsive">
                         <table class="table-modern text-center">
                             <thead>
@@ -222,7 +205,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="fw-bold text-start">Sifat Atribut</td>
+                                    <td class="fw-bold text-start">Sifat</td>
                                     @foreach ($hasilSaw['kriterias'] as $k)
                                         <td>
                                             <span class="badge {{ $k->sifat === 'benefit' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
@@ -232,19 +215,19 @@
                                     @endforeach
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">Bobot Relatif (W)</td>
+                                    <td class="fw-bold text-start">Bobot (W)</td>
                                     @foreach ($hasilSaw['kriterias'] as $k)
                                         <td class="fw-bold">{{ $k->bobot }} ({{ round($k->bobot * 100) }}%)</td>
                                     @endforeach
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">Nilai Maksimum (Max Xⱼ)</td>
+                                    <td class="fw-bold text-start">Max Xj</td>
                                     @foreach ($hasilSaw['kriterias'] as $k)
                                         <td class="fw-bold text-success">{{ $hasilSaw['kriteria_stats'][$k->id]['max'] }}</td>
                                     @endforeach
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-start">Nilai Minimum (Min Xⱼ)</td>
+                                    <td class="fw-bold text-start">Min Xj</td>
                                     @foreach ($hasilSaw['kriterias'] as $k)
                                         <td class="fw-bold text-danger">{{ $hasilSaw['kriteria_stats'][$k->id]['min'] }}</td>
                                     @endforeach
@@ -256,7 +239,6 @@
 
                 <!-- TAB 4: MATRIKS KEPUTUSAN (X) -->
                 <div class="tab-pane fade" id="matriks-x" role="tabpanel">
-                    <h6 class="fw-bold text-dark mb-3">Matriks Keputusan Awal (X)</h6>
                     <div class="table-responsive">
                         <table class="table-modern text-center">
                             <thead>
@@ -293,7 +275,6 @@
 
 @push('scripts')
 <script>
-    // Tab pill style toggle
     document.querySelectorAll('#sawTabs button').forEach(button => {
         button.addEventListener('shown.bs.tab', (e) => {
             document.querySelectorAll('#sawTabs button').forEach(b => {

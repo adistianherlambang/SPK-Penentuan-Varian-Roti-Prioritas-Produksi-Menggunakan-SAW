@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Master Varian Roti')
+@section('title', 'Varian Roti')
 
 @section('content')
 <div class="d-flex flex-column gap-4">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
         <div>
-            <h4 class="fw-bold text-dark mb-1">Data Varian Roti (Alternatif)</h4>
-            <p class="text-muted small mb-0">Daftar produk roti di Pelangi Nusantara Food yang menjadi alternatif dalam penentuan prioritas produksi</p>
+            <h4 class="fw-bold text-dark mb-1">Varian Roti</h4>
+            <p class="text-muted small mb-0">Daftar alternatif produksi</p>
         </div>
         @can('manage-data')
             <a href="{{ route('varian.create') }}" class="btn btn-coral">
-                <i class="bi bi-plus-circle me-1"></i> Tambah Varian Baru
+                <i class="bi bi-plus-circle me-1"></i> Tambah Varian
             </a>
         @endcan
     </div>
@@ -22,13 +22,13 @@
                 <thead>
                     <tr>
                         <th style="width: 80px;" class="text-center">Kode</th>
-                        <th>Nama Varian Roti</th>
+                        <th>Nama Varian</th>
                         <th>Kategori</th>
-                        <th class="text-end">Harga Jual</th>
-                        <th class="text-end">Estimasi Keuntungan</th>
-                        <th>Deskripsi Produk</th>
+                        <th class="text-end">Harga</th>
+                        <th class="text-end">Margin</th>
+                        <th>Deskripsi</th>
                         @can('manage-data')
-                            <th style="width: 120px;" class="text-center">Aksi</th>
+                            <th style="width: 100px;" class="text-center">Aksi</th>
                         @endcan
                     </tr>
                 </thead>
@@ -56,13 +56,13 @@
                             @can('manage-data')
                                 <td class="text-center">
                                     <div class="d-inline-flex gap-1">
-                                        <a href="{{ route('varian.edit', $v) }}" class="btn btn-sm btn-coral-outline" title="Ubah Data">
+                                        <a href="{{ route('varian.edit', $v) }}" class="btn btn-sm btn-coral-outline" title="Ubah">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('varian.destroy', $v) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus varian roti {{ $v->nama_varian }}? Data penilaian terkait juga akan terhapus.');">
+                                        <form action="{{ route('varian.destroy', $v) }}" method="POST" onsubmit="return confirm('Hapus varian roti ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-pill-light text-danger" title="Hapus Data">
+                                            <button type="submit" class="btn btn-sm btn-pill-light text-danger" title="Hapus">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
