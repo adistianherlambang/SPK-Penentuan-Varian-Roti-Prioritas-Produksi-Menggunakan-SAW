@@ -37,7 +37,11 @@
                     </div>
                     <div class="progress mt-2" style="height: 6px; border-radius: 9999px; background-color: #FEE2E2;">
                         <div class="progress-bar" role="progressbar" 
-                            style="width: {{ $periodeTerbaru && $periodeTerbaru->status === 'divalidasi' ? '100%' : ($hasilTerbaru->isNotEmpty() ? '85%' : '40%') }}; background: var(--coral-gradient); border-radius: 9999px;">
+                            @style([
+                                'width: ' . ($periodeTerbaru && $periodeTerbaru->status === 'divalidasi' ? '100%' : ($hasilTerbaru->isNotEmpty() ? '85%' : '40%')),
+                                'background: var(--coral-gradient)',
+                                'border-radius: 9999px',
+                            ])>
                         </div>
                     </div>
                 </div>
