@@ -80,49 +80,47 @@
         }
 
         .sidebar-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 2rem;
-            padding-left: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-light);
         }
         .profile-avatar-box {
             position: relative;
-            margin-bottom: 0.75rem;
         }
         .profile-avatar {
-            width: 54px;
-            height: 54px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: linear-gradient(135deg, #FFE4E6 0%, #FECDD3 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 1.25rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             color: var(--coral-500);
             border: 2px solid #FFFFFF;
         }
         .profile-status-dot {
             position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 11px;
-            height: 11px;
+            bottom: 0px;
+            right: 0px;
+            width: 10px;
+            height: 10px;
             background-color: var(--mint-500);
             border: 2px solid #ffffff;
             border-radius: 50%;
         }
-        .profile-greeting {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.2;
-        }
         .profile-name {
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-size: 0.95rem;
+            font-weight: 700;
             color: var(--text-dark);
             line-height: 1.2;
+            margin-bottom: 0.15rem;
+        }
+        .profile-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.1;
         }
 
         /* Navigation */
@@ -167,19 +165,6 @@
         }
         .nav-item-link.active i {
             color: #FFFFFF;
-        }
-        .nav-badge-red {
-            background-color: var(--coral-500);
-            color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 700;
-            border-radius: 9999px;
-            padding: 0.15rem 0.5rem;
-            line-height: 1.2;
-        }
-        .nav-item-link.active .nav-badge-red {
-            background-color: rgba(255, 255, 255, 0.25);
-            color: #ffffff;
         }
 
         /* Sidebar Red Widget Card */
@@ -358,39 +343,6 @@
             border-color: var(--coral-500);
             outline: none;
         }
-        .btn-bell {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid var(--border-subtle);
-            background-color: #FAFAFB;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-body);
-            position: relative;
-            cursor: pointer;
-        }
-        .btn-bell:hover {
-            border-color: var(--coral-500);
-            color: var(--coral-500);
-        }
-        .bell-dot-badge {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 15px;
-            height: 15px;
-            background-color: var(--coral-500);
-            color: #ffffff;
-            font-size: 0.62rem;
-            font-weight: 800;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #ffffff;
-        }
 
         /* Card Styles */
         .card-custom {
@@ -466,31 +418,6 @@
             transform: translateY(-1px);
         }
 
-        .badge-coral-pill {
-            background-color: var(--coral-soft);
-            color: var(--coral-600);
-            border: 1px solid var(--coral-soft-border);
-            border-radius: 9999px;
-            padding: 0.3rem 0.75rem;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-        .badge-mint-pill {
-            background-color: var(--mint-bg);
-            color: var(--mint-text);
-            border-radius: 9999px;
-            padding: 0.3rem 0.75rem;
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-        .badge-gray-pill {
-            background-color: #F3F4F6;
-            color: #4B5563;
-            border-radius: 9999px;
-            padding: 0.3rem 0.75rem;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
 
         .bottom-banner-coral {
             background: var(--coral-gradient);
@@ -575,21 +502,22 @@
         <aside class="sidebar" id="appSidebar">
             <!-- Profile -->
             <div class="sidebar-profile">
-                <div class="profile-avatar-box">
-                    <div class="profile-avatar">
-                        @if(auth()->check())
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        @else
-                            C
-                        @endif
+                <div class="d-flex align-items-center gap-3 w-100">
+                    <div class="profile-avatar-box position-relative flex-shrink-0">
+                        <div class="profile-avatar">
+                            @if(auth()->check())
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            @else
+                                A
+                            @endif
+                        </div>
+                        <div class="profile-status-dot"></div>
                     </div>
-                    <div class="profile-status-dot"></div>
+                    <div class="overflow-hidden">
+                        <div class="profile-name text-truncate">{{ auth()->user()->name ?? 'Admin' }}</div>
+                        <div class="profile-role text-truncate">{{ ucfirst(auth()->user()->role ?? 'Admin') }}</div>
+                    </div>
                 </div>
-                <div class="profile-greeting">Halo,</div>
-                <div class="profile-name">{{ auth()->user()->name ?? 'Admin' }}</div>
-                <span class="badge badge-mint-pill mt-1" style="font-size: 0.68rem;">
-                    {{ auth()->user()->role ?? 'Admin' }}
-                </span>
             </div>
 
             <!-- Navigation -->
@@ -627,7 +555,6 @@
                         <i class="bi bi-table"></i>
                         <span>Data Operasional</span>
                     </div>
-                    <span class="nav-badge-red">X</span>
                 </a>
 
                 <a href="{{ route('perhitungan.index') }}" class="nav-item-link {{ request()->routeIs('perhitungan.*') ? 'active' : '' }}">
@@ -635,7 +562,6 @@
                         <i class="bi bi-calculator-fill"></i>
                         <span>Perhitungan SAW</span>
                     </div>
-                    <span class="nav-badge-red">2</span>
                 </a>
 
                 <a href="{{ route('laporan.index') }}" class="nav-item-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
@@ -643,7 +569,6 @@
                         <i class="bi bi-file-earmark-bar-graph-fill"></i>
                         <span>Laporan</span>
                     </div>
-                    <span class="nav-badge-red">1</span>
                 </a>
             </nav>
 

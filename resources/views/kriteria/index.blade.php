@@ -5,8 +5,8 @@
 @section('content')
 <div class="d-flex flex-column gap-3">
     <div class="d-flex justify-content-between align-items-center">
-        <span class="badge {{ abs($totalBobot - 1.0) < 0.001 ? 'badge-mint-pill' : 'badge-coral-pill' }} px-3 py-2">
-            Bobot: {{ round($totalBobot * 100) }}%
+        <span class="fw-semibold small text-muted">
+            Total Bobot: {{ round($totalBobot * 100) }}%
         </span>
     </div>
 
@@ -31,19 +31,19 @@
                     @forelse ($kriterias as $k)
                         <tr>
                             <td class="text-center">
-                                <span class="badge badge-gray-pill">{{ $k->kode }}</span>
+                                <span class="fw-bold text-dark">{{ $k->kode }}</span>
                             </td>
                             <td class="fw-bold text-dark">{{ $k->nama }}</td>
                             <td class="text-center">
                                 @if($k->sifat === 'benefit')
-                                    <span class="badge badge-mint-pill px-3 py-1">Benefit</span>
+                                    <span class="text-success fw-semibold small">Benefit</span>
                                 @else
-                                    <span class="badge badge-coral-pill px-3 py-1">Cost</span>
+                                    <span class="text-danger fw-semibold small">Cost</span>
                                 @endif
                             </td>
                             <td class="text-center fw-bold text-danger">{{ $k->bobot }}</td>
                             <td class="text-center fw-semibold">{{ round($k->bobot * 100) }}%</td>
-                            <td><span class="badge badge-gray-pill">{{ $k->satuan ?? '-' }}</span></td>
+                            <td><span class="text-muted small">{{ $k->satuan ?? '-' }}</span></td>
                             <td class="small text-muted" style="max-width: 260px;">{{ $k->keterangan }}</td>
                             @can('manage-data')
                                 <td class="text-center">

@@ -11,8 +11,8 @@
             <div class="d-flex align-items-center gap-2">
                 <h5 class="fw-bold text-dark mb-0">Dashboard</h5>
                 @if($periodeTerbaru)
-                    <span class="badge {{ $periodeTerbaru->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-priority-sedang' }} ms-2">
-                        {{ $periodeTerbaru->nama_periode }}
+                    <span class="small text-muted ms-2">
+                        • {{ $periodeTerbaru->nama_periode }}
                     </span>
                 @endif
             </div>
@@ -134,7 +134,7 @@
                     <table class="table table-hover align-middle mb-0" style="font-size: 0.82rem;">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 40px;">#</th>
+                                <th style="width: 40px;" class="text-center">#</th>
                                 <th>Varian</th>
                                 <th class="text-center">Skor</th>
                                 <th class="text-end">Prioritas</th>
@@ -143,10 +143,8 @@
                         <tbody>
                             @forelse ($hasilTerbaru->take(6) as $item)
                                 <tr>
-                                    <td>
-                                        <span class="badge rounded-circle {{ $item->ranking == 1 ? 'bg-danger text-white' : ($item->ranking <= 3 ? 'bg-danger-subtle text-danger' : 'bg-light text-muted border') }} fw-bold d-inline-flex align-items-center justify-content-center" style="width: 22px; height: 22px; font-size: 0.7rem;">
-                                            {{ $item->ranking }}
-                                        </span>
+                                    <td class="text-center">
+                                        <span class="fw-bold {{ $item->ranking == 1 ? 'text-danger' : 'text-dark' }}">{{ $item->ranking }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-semibold text-dark">{{ $item->varianRoti->nama_varian }}</span>
@@ -156,11 +154,11 @@
                                     </td>
                                     <td class="text-end">
                                         @if($item->rekomendasi === 'Prioritas Utama')
-                                            <span class="badge badge-priority-utama">Utama</span>
+                                            <span class="text-success fw-semibold small">Utama</span>
                                         @elseif($item->rekomendasi === 'Prioritas Sedang')
-                                            <span class="badge badge-priority-sedang">Sedang</span>
+                                            <span class="text-warning fw-semibold small">Sedang</span>
                                         @else
-                                            <span class="badge badge-priority-rendah">Rendah</span>
+                                            <span class="text-muted fw-semibold small">Rendah</span>
                                         @endif
                                     </td>
                                 </tr>

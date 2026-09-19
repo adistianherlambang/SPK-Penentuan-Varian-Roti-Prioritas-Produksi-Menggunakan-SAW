@@ -18,8 +18,8 @@
                     </select>
                 </form>
                 @if($periode)
-                    <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
-                        {{ ucfirst($periode->status) }}
+                    <span class="fw-semibold {{ $periode->status === 'divalidasi' ? 'text-success' : 'text-danger' }}">
+                        • {{ ucfirst($periode->status) }}
                     </span>
                 @endif
             </div>
@@ -57,9 +57,9 @@
                                     <th>
                                         <div class="fw-bold text-dark">{{ $k->kode }}</div>
                                         <div class="small text-secondary" style="font-size: 0.75rem;">{{ $k->nama }}</div>
-                                        <span class="badge {{ $k->sifat === 'benefit' ? 'badge-mint-pill' : 'badge-coral-pill' }}" style="font-size: 0.65rem;">
+                                        <div class="fw-medium {{ $k->sifat === 'benefit' ? 'text-success' : 'text-danger' }}" style="font-size: 0.7rem;">
                                             {{ ucfirst($k->sifat) }} ({{ round($k->bobot * 100) }}%)
-                                        </span>
+                                        </div>
                                     </th>
                                 @endforeach
                             </tr>
@@ -72,8 +72,8 @@
                         <tbody>
                             @foreach ($varians as $v)
                                 <tr>
-                                    <td class="text-center fw-bold">
-                                        <span class="badge badge-gray-pill">{{ $v->kode }}</span>
+                                    <td class="text-center fw-bold text-dark">
+                                        {{ $v->kode }}
                                     </td>
                                     <td>
                                         <div class="fw-bold text-dark">{{ $v->nama_varian }}</div>

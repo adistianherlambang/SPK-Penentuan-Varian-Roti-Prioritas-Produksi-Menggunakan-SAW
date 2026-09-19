@@ -32,13 +32,13 @@
                     @forelse ($varians as $v)
                         <tr>
                             <td class="text-center">
-                                <span class="badge badge-gray-pill">{{ $v->kode }}</span>
+                                <span class="fw-bold text-dark">{{ $v->kode }}</span>
                             </td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $v->nama_varian }}</div>
                             </td>
                             <td>
-                                <span class="badge badge-coral-pill">{{ $v->kategori }}</span>
+                                <span class="text-muted small">{{ $v->kategori }}</span>
                             </td>
                             <td class="text-end fw-semibold text-secondary">
                                 Rp {{ number_format($v->harga_jual, 0, ',', '.') }}

@@ -18,8 +18,8 @@
                     </select>
                 </form>
                 @if($periode)
-                    <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
-                        {{ ucfirst($periode->status) }}
+                    <span class="fw-semibold {{ $periode->status === 'divalidasi' ? 'text-success' : 'text-danger' }}">
+                        • {{ ucfirst($periode->status) }}
                     </span>
                 @endif
             </div>
@@ -97,13 +97,11 @@
                             <tbody>
                                 @foreach ($hasilSaw['hasil_perankingan'] as $item)
                                     <tr>
-                                        <td class="text-center">
-                                            <span class="badge rounded-circle {{ $item['ranking'] == 1 ? 'bg-danger text-white' : ($item['ranking'] <= 3 ? 'bg-danger-subtle text-danger' : 'bg-light text-muted border') }} fw-bold d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.75rem;">
-                                                {{ $item['ranking'] }}
-                                            </span>
+                                        <td class="text-center fw-bold {{ $item['ranking'] == 1 ? 'text-danger' : 'text-dark' }}">
+                                            #{{ $item['ranking'] }}
                                         </td>
-                                        <td class="text-center">
-                                            <span class="badge badge-gray-pill">{{ $item['varian']->kode }}</span>
+                                        <td class="text-center fw-semibold text-secondary">
+                                            {{ $item['varian']->kode }}
                                         </td>
                                         <td>
                                             <div class="fw-bold text-dark">{{ $item['varian']->nama_varian }}</div>
@@ -114,11 +112,11 @@
                                         </td>
                                         <td>
                                             @if($item['rekomendasi'] === 'Prioritas Utama')
-                                                <span class="badge badge-priority-utama">Utama</span>
+                                                <span class="text-success fw-semibold">Utama</span>
                                             @elseif($item['rekomendasi'] === 'Prioritas Sedang')
-                                                <span class="badge badge-priority-sedang">Sedang</span>
+                                                <span class="text-warning fw-semibold">Sedang</span>
                                             @else
-                                                <span class="badge badge-priority-rendah">Rendah</span>
+                                                <span class="text-muted fw-semibold">Rendah</span>
                                             @endif
                                         </td>
                                         <td class="small text-muted" style="max-width: 280px;">
@@ -142,9 +140,9 @@
                                     @foreach ($hasilSaw['kriterias'] as $k)
                                         <th>
                                             <div>{{ $k->kode }}</div>
-                                            <span class="badge {{ $k->sifat === 'benefit' ? 'badge-mint-pill' : 'badge-coral-pill' }}" style="font-size: 0.65rem;">
+                                            <div class="fw-medium {{ $k->sifat === 'benefit' ? 'text-success' : 'text-danger' }}" style="font-size: 0.7rem;">
                                                 {{ ucfirst($k->sifat) }}
-                                            </span>
+                                            </div>
                                         </th>
                                     @endforeach
                                 </tr>
@@ -152,7 +150,7 @@
                             <tbody>
                                 @foreach ($hasilSaw['varians'] as $v)
                                     <tr>
-                                        <td><span class="badge badge-gray-pill">{{ $v->kode }}</span></td>
+                                        <td class="fw-semibold text-secondary">{{ $v->kode }}</td>
                                         <td class="text-start fw-semibold text-dark">{{ $v->nama_varian }}</td>
                                         @foreach ($hasilSaw['kriterias'] as $k)
                                             @php
@@ -186,10 +184,8 @@
                                 <tr>
                                     <td class="fw-bold text-start">Sifat</td>
                                     @foreach ($hasilSaw['kriterias'] as $k)
-                                        <td>
-                                            <span class="badge {{ $k->sifat === 'benefit' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
-                                                {{ ucfirst($k->sifat) }}
-                                            </span>
+                                        <td class="fw-semibold {{ $k->sifat === 'benefit' ? 'text-success' : 'text-danger' }}">
+                                            {{ ucfirst($k->sifat) }}
                                         </td>
                                     @endforeach
                                 </tr>
@@ -235,7 +231,7 @@
                             <tbody>
                                 @foreach ($hasilSaw['varians'] as $v)
                                     <tr>
-                                        <td><span class="badge badge-gray-pill">{{ $v->kode }}</span></td>
+                                        <td class="fw-semibold text-secondary">{{ $v->kode }}</td>
                                         <td class="text-start fw-semibold text-dark">{{ $v->nama_varian }}</td>
                                         @foreach ($hasilSaw['kriterias'] as $k)
                                             <td class="fw-semibold">{{ number_format($hasilSaw['matrix_x'][$v->id][$k->id] ?? 0, 0, ',', '.') }}</td>

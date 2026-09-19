@@ -12,7 +12,7 @@
 
     <div class="card-custom p-4 bg-white">
         <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom border-light">
-            <span class="badge badge-coral-pill fs-6">{{ $varian->kode }}</span>
+            <span class="fw-bold text-danger fs-5">{{ $varian->kode }} •</span>
             <h5 class="fw-bold text-dark mb-0">{{ $varian->nama_varian }}</h5>
         </div>
 

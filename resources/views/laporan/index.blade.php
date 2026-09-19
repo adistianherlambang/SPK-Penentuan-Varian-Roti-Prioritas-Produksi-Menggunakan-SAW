@@ -18,8 +18,8 @@
                     </select>
                 </form>
                 @if($periode)
-                    <span class="badge {{ $periode->status === 'divalidasi' ? 'badge-mint-pill' : 'badge-coral-pill' }}">
-                        {{ ucfirst($periode->status) }}
+                    <span class="fw-semibold {{ $periode->status === 'divalidasi' ? 'text-success' : 'text-danger' }}">
+                        • {{ ucfirst($periode->status) }}
                     </span>
                 @endif
             </div>
@@ -65,13 +65,11 @@
                     <tbody>
                         @foreach ($hasilSaw as $item)
                             <tr>
-                                <td class="text-center">
-                                    <span class="badge rounded-circle {{ $item->ranking == 1 ? 'bg-danger text-white' : ($item->ranking <= 3 ? 'bg-danger-subtle text-danger' : 'bg-light text-muted border') }} fw-bold d-inline-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.75rem;">
-                                        {{ $item->ranking }}
-                                    </span>
+                                <td class="text-center fw-bold {{ $item->ranking == 1 ? 'text-danger' : 'text-dark' }}">
+                                    #{{ $item->ranking }}
                                 </td>
-                                <td class="text-center">
-                                    <span class="badge badge-gray-pill">{{ $item->varianRoti->kode }}</span>
+                                <td class="text-center fw-semibold text-secondary">
+                                    {{ $item->varianRoti->kode }}
                                 </td>
                                 <td>
                                     <div class="fw-bold text-dark">{{ $item->varianRoti->nama_varian }}</div>
@@ -82,11 +80,11 @@
                                 </td>
                                 <td class="text-center">
                                     @if($item->rekomendasi === 'Prioritas Utama')
-                                        <span class="badge badge-priority-utama">Utama</span>
+                                        <span class="text-success fw-semibold">Utama</span>
                                     @elseif($item->rekomendasi === 'Prioritas Sedang')
-                                        <span class="badge badge-priority-sedang">Sedang</span>
+                                        <span class="text-warning fw-semibold">Sedang</span>
                                     @else
-                                        <span class="badge badge-priority-rendah">Rendah</span>
+                                        <span class="text-muted fw-semibold">Rendah</span>
                                     @endif
                                 </td>
                                 <td class="small text-muted">

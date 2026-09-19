@@ -32,29 +32,23 @@
                                 <div class="fw-bold text-dark">{{ $p->nama_periode }}</div>
                                 <small class="text-muted">{{ $p->created_at->format('d/m/Y') }}</small>
                             </td>
-                            <td>
-                                <span class="badge badge-gray-pill">
-                                    {{ DateTime::createFromFormat('!m', $p->bulan)->format('M') }} {{ $p->tahun }}
-                                </span>
+                            <td class="text-secondary fw-medium">
+                                {{ DateTime::createFromFormat('!m', $p->bulan)->format('M') }} {{ $p->tahun }}
                             </td>
                             <td class="text-center">
                                 @if($p->penilaians_count > 0)
-                                    <span class="badge badge-mint-pill">
-                                        Terisi ({{ $p->penilaians_count }})
-                                    </span>
+                                    <span class="text-success fw-medium">Terisi ({{ $p->penilaians_count }})</span>
                                 @else
-                                    <span class="badge badge-gray-pill">
-                                        Kosong
-                                    </span>
+                                    <span class="text-muted">Kosong</span>
                                 @endif
                             </td>
                             <td class="text-center">
                                 @if($p->status === 'divalidasi')
-                                    <span class="badge badge-mint-pill px-3 py-1">Divalidasi</span>
+                                    <span class="text-success fw-semibold">Divalidasi</span>
                                 @elseif($p->status === 'dihitung')
-                                    <span class="badge badge-coral-pill px-3 py-1">Dihitung</span>
+                                    <span class="text-danger fw-semibold">Dihitung</span>
                                 @else
-                                    <span class="badge badge-gray-pill px-3 py-1">Draf</span>
+                                    <span class="text-muted">Draf</span>
                                 @endif
                             </td>
                             <td class="small text-muted" style="max-width: 240px;">
