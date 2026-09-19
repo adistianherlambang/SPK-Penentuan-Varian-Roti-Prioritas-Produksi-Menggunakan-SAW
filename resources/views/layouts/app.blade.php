@@ -705,29 +705,7 @@
                         <i class="bi bi-list fs-5"></i>
                     </button>
                     <div class="title-area">
-                        <div class="eyebrow">SPK Produksi</div>
                         <h1 class="page-title">@yield('title', 'Dashboard')</h1>
-                    </div>
-                </div>
-
-                <div class="actions-area">
-                    <select class="select-pill d-none d-md-block" onchange="if(this.value) window.location.href=this.value;">
-                        <option value="{{ route('dashboard') }}">Pilih Periode ▾</option>
-                        @foreach (\App\Models\Periode::latest()->take(5)->get() as $p)
-                            <option value="{{ route('perhitungan.index', ['periode_id' => $p->id]) }}">
-                                {{ $p->nama_periode }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <div class="search-pill-box">
-                        <i class="bi bi-search"></i>
-                        <input type="text" placeholder="Cari...">
-                    </div>
-
-                    <div class="btn-bell" title="Notifikasi">
-                        <i class="bi bi-bell"></i>
-                        <span class="bell-dot-badge">3</span>
                     </div>
                 </div>
             </header>
