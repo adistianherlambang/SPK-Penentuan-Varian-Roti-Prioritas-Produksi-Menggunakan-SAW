@@ -183,10 +183,10 @@
             <span class="fw-semibold text-white">Rekomendasi Produksi Terhitung</span>
         </div>
         <div class="d-flex gap-2">
-            <a href="{{ route('laporan.index') }}" class="btn-pill-white text-decoration-none">
+            <a href="{{ route('laporan.index') }}" class="btn-pill-white">
                 Laporan
             </a>
-            <a href="{{ route('perhitungan.index') }}" class="btn btn-outline-light rounded-pill px-3 py-1 text-decoration-none" style="font-size: 0.8rem;">
+            <a href="{{ route('perhitungan.index') }}" class="btn-pill-outline-white">
                 Kalkulasi
             </a>
         </div>

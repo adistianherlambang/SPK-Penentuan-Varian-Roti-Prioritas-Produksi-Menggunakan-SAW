@@ -410,11 +410,36 @@
             color: var(--coral-500);
             border-radius: 9999px;
             font-weight: 700;
+            font-size: 0.85rem;
             padding: 0.45rem 1.15rem;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s ease;
         }
         .btn-pill-white:hover {
+            color: var(--coral-600);
+            transform: translateY(-1px);
+        }
+        .btn-pill-outline-white {
+            background: transparent;
+            color: #FFFFFF;
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.45rem 1.15rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .btn-pill-outline-white:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            border-color: #FFFFFF;
             transform: translateY(-1px);
         }
 
