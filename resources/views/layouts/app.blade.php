@@ -30,8 +30,8 @@
             --sidebar-bg: #FFFFFF;
             --card-bg: #FFFFFF;
             --card-radius: 20px;
-            --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
-            --card-shadow-hover: 0 12px 28px -4px rgba(239, 68, 68, 0.09), 0 6px 12px -2px rgba(0, 0, 0, 0.03);
+            --card-shadow: none;
+            --card-shadow-hover: none;
             --text-dark: #111827;
             --text-body: #374151;
             --text-muted: #6B7280;
@@ -102,7 +102,6 @@
             font-size: 1.25rem;
             color: var(--coral-500);
             border: 2px solid #FFFFFF;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
         }
         .profile-status-dot {
             position: absolute;
@@ -165,7 +164,6 @@
         .nav-item-link.active {
             background: var(--coral-gradient);
             color: #FFFFFF;
-            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.35);
         }
         .nav-item-link.active i {
             color: #FFFFFF;
@@ -192,7 +190,6 @@
             color: #FFFFFF;
             margin-top: 1.25rem;
             margin-bottom: 1rem;
-            box-shadow: 0 10px 25px -4px rgba(239, 68, 68, 0.35);
             position: relative;
             overflow: hidden;
         }
@@ -264,7 +261,6 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: var(--card-shadow);
             margin-bottom: 0.85rem;
         }
         .mini-card-icon {
@@ -333,7 +329,6 @@
         .search-pill-box input:focus {
             background-color: #FFFFFF;
             border-color: var(--coral-500);
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
             outline: none;
         }
         .search-pill-box i {
@@ -358,6 +353,10 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236B7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 1rem center;
+        }
+        .select-pill:focus {
+            border-color: var(--coral-500);
+            outline: none;
         }
         .btn-bell {
             width: 38px;
@@ -398,11 +397,8 @@
             background: var(--card-bg);
             border: 1px solid var(--border-light);
             border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card-custom:hover {
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: none;
+            transition: transform 0.2s ease;
         }
 
         /* Buttons & Badges */
@@ -418,7 +414,6 @@
             align-items: center;
             gap: 0.4rem;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
             text-decoration: none;
         }
         .btn-coral:hover {
@@ -502,7 +497,6 @@
             border-radius: var(--card-radius);
             padding: 1.5rem 2rem;
             color: #FFFFFF;
-            box-shadow: 0 10px 30px -5px rgba(239, 68, 68, 0.4);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -525,7 +519,6 @@
         }
         .form-control:focus, .form-select:focus {
             border-color: var(--coral-500);
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
             outline: none;
         }
 
@@ -742,7 +735,7 @@
             <!-- Body -->
             <main class="p-3 p-md-4 flex-grow-1">
                 @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show border-0 rounded-4 shadow-sm d-flex align-items-center gap-3 mb-4 p-3" role="alert" style="background-color: #ECFDF5; color: #065F46;">
+                    <div class="alert alert-success alert-dismissible fade show border-0 rounded-4 d-flex align-items-center gap-3 mb-4 p-3" role="alert" style="background-color: #ECFDF5; color: #065F46;">
                         <i class="bi bi-check-circle-fill fs-4 text-success"></i>
                         <div class="fw-semibold">{{ session('success') }}</div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -750,7 +743,7 @@
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show border-0 rounded-4 shadow-sm d-flex align-items-center gap-3 mb-4 p-3" role="alert" style="background-color: #FEF2F2; color: #991B1B;">
+                    <div class="alert alert-danger alert-dismissible fade show border-0 rounded-4 d-flex align-items-center gap-3 mb-4 p-3" role="alert" style="background-color: #FEF2F2; color: #991B1B;">
                         <i class="bi bi-exclamation-triangle-fill fs-4 text-danger"></i>
                         <div class="fw-semibold">{{ session('error') }}</div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>

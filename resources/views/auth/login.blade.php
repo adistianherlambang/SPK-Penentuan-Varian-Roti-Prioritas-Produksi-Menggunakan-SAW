@@ -51,7 +51,6 @@
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
         }
 
         .form-control {
@@ -65,7 +64,6 @@
 
         .form-control:focus {
             border-color: var(--coral-500);
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
             outline: none;
         }
 
@@ -78,14 +76,12 @@
             padding: 0.75rem 1.5rem;
             font-size: 0.95rem;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.28);
         }
 
         .btn-coral:hover {
             background: linear-gradient(135deg, #F04438 0%, #C92A2A 100%);
             color: #ffffff;
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(239, 68, 68, 0.38);
         }
 
         .quick-btn {
@@ -109,7 +105,7 @@
 <body>
 
 <div class="login-form-container">
-    <!-- Brand & Title (Direct, Clean, No Card Wrapper) -->
+    <!-- Brand & Title -->
     <div class="text-center mb-4">
         <div class="d-inline-flex brand-icon mb-3">
             <i class="bi bi-cup-hot-fill"></i>

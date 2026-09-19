@@ -26,8 +26,8 @@
     --bg-app: #F5F6F8;
     --card-bg: #FFFFFF;
     --card-radius: 20px;
-    --card-shadow: 0 4px 20px -2px rgba(0,0,0,0.03), 0 2px 6px -1px rgba(0,0,0,0.02);
-    --card-shadow-hover: 0 10px 25px -4px rgba(239,68,68,0.08), 0 4px 10px -2px rgba(0,0,0,0.04);
+    --card-shadow: none;
+    --card-shadow-hover: none;
     --text-main: #111827;
     --text-muted: #6B7280;
     --border-color: #EFF0F3;
@@ -55,7 +55,6 @@ body {
 .btn-coral:hover {
     background: linear-gradient(135deg, #F04438 0%, #C92A2A 100%);
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
     transform: translateY(-1px);
 }
 .btn-coral-outline {
@@ -80,7 +79,6 @@ body {
 }
 .btn-pill-white:hover {
     background: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
 }
 
@@ -110,5 +108,5 @@ body {
     background: #ffffff;
     border-radius: var(--card-radius);
     border: 1px solid var(--border-color);
-    box-shadow: var(--card-shadow);
+    box-shadow: none;
 }

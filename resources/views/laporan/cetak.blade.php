@@ -83,7 +83,7 @@
 <body class="p-4">
 
     <!-- Print Action Bar -->
-    <div class="no-print mb-4 p-3 bg-white border rounded-4 shadow-sm d-flex justify-content-between align-items-center">
+    <div class="no-print mb-4 p-3 bg-white border rounded-4 d-flex justify-content-between align-items-center">
         <div>
             <strong class="text-dark">Preview Cetak Dokumen Resmi</strong>
             <div class="small text-muted">Gunakan opsi print browser untuk menyimpan ke PDF atau mencetak ke kertas A4.</div>

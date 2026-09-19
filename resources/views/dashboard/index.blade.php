@@ -88,7 +88,7 @@
                     </svg>
 
                     <div class="position-relative d-flex justify-content-end align-items-center h-100">
-                        <div class="card border-0 shadow-sm p-3 rounded-4" style="max-width: 230px; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);">
+                        <div class="card border p-3 rounded-4" style="max-width: 230px; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <span class="fw-bold text-dark small">Status</span>
                                 <a href="{{ route('laporan.index') }}" class="text-muted" style="font-size: 0.72rem; text-decoration: none;">Detail</a>
@@ -278,7 +278,7 @@
         <!-- Red Performance Card -->
         <div class="col-lg-5">
             <div class="card-custom p-4 h-100 position-relative overflow-hidden text-white" 
-                style="background: var(--coral-card-gradient); box-shadow: 0 12px 28px -4px rgba(239, 68, 68, 0.4);">
+                style="background: var(--coral-card-gradient);">
                 
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h6 class="fw-bold text-white mb-0">Akurasi SAW</h6>

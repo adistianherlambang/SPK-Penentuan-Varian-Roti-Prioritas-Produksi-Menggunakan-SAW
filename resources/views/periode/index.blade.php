@@ -105,7 +105,7 @@
                                 <!-- Modal Validasi -->
                                 <div class="modal fade text-start" id="validasiModal{{ $p->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content rounded-4 border-0 shadow">
+                                        <div class="modal-content rounded-4 border">
                                             <form action="{{ route('periode.validasi', $p) }}" method="POST">
                                                 @csrf
                                                 <div class="modal-header border-bottom border-light p-4">
