@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Suivi logistique')
+@section('title', 'Dashboard')
 
 @section('content')
 <div class="d-flex flex-column gap-4">
@@ -17,7 +17,7 @@
                     Divalidasi
                 </a>
                 <a href="{{ route('penilaian.index') }}" class="btn btn-sm btn-pill-light">
-                    Draft
+                    Draf
                 </a>
             </div>
             <span class="badge badge-mint-pill">

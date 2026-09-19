@@ -585,8 +585,8 @@
                     </div>
                     <div class="profile-status-dot"></div>
                 </div>
-                <div class="profile-greeting">Bonjour,</div>
-                <div class="profile-name">{{ auth()->user()->name ?? 'Camille' }}</div>
+                <div class="profile-greeting">Halo,</div>
+                <div class="profile-name">{{ auth()->user()->name ?? 'Admin' }}</div>
                 <span class="badge badge-mint-pill mt-1" style="font-size: 0.68rem;">
                     {{ auth()->user()->role ?? 'Admin' }}
                 </span>
@@ -597,7 +597,7 @@
                 <a href="{{ route('dashboard') }}" class="nav-item-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <div class="nav-left">
                         <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Vue d'ensemble</span>
+                        <span>Dashboard</span>
                     </div>
                 </a>
 
@@ -705,8 +705,8 @@
                         <i class="bi bi-list fs-5"></i>
                     </button>
                     <div class="title-area">
-                        <div class="eyebrow">Tableau de bord</div>
-                        <h1 class="page-title">@yield('title', 'Suivi logistique')</h1>
+                        <div class="eyebrow">SPK Produksi</div>
+                        <h1 class="page-title">@yield('title', 'Dashboard')</h1>
                     </div>
                 </div>
 
@@ -722,7 +722,7 @@
 
                     <div class="search-pill-box">
                         <i class="bi bi-search"></i>
-                        <input type="text" placeholder="Rechercher...">
+                        <input type="text" placeholder="Cari...">
                     </div>
 
                     <div class="btn-bell" title="Notifikasi">
